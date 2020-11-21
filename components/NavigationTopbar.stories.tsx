@@ -4,27 +4,29 @@ import Auth from 'contexts/Auth';
 import { AuthDecorator, ClusterOverviewDecorator, UIDecorator } from 'storybook/ContextDecorators';
 import RouterDecorator from 'storybook/RouterDecorator';
 
-import Navigation from './Navigation';
+import NavigationTopbar from './NavigationTopbar';
 
 export default {
-  component: Navigation,
-  decorators: [ AuthDecorator, ClusterOverviewDecorator, RouterDecorator, UIDecorator ],
-  title: 'Navigation',
+  component: NavigationTopbar,
+  decorators: [
+    AuthDecorator,
+    ClusterOverviewDecorator,
+    RouterDecorator,
+    UIDecorator ],
+  parameters: { layout: 'fullscreen' },
+  title: 'NavigationTopbar',
 };
 
-const NavigationLoggedIn = () => {
+const NavigationTopbarLoggedIn = () => {
   const setAuth = Auth.useActionContext();
 
   useEffect(() => {
     setAuth({ type: Auth.ActionType.Set, value: { isAuthenticated: true } });
   }, [ setAuth ]);
 
-  return <Navigation />;
+  return <NavigationTopbar />;
 };
 
 export const Default = (): React.ReactNode => (
-  <div style={{ display: 'flex', width: '100vw' }}>
-    <NavigationLoggedIn />;
-    <div style={{ flexGrow: 1 }}>Content</div>
-  </div>
+  <NavigationTopbarLoggedIn />
 );
